@@ -1,0 +1,48 @@
+[package]
+name = "decap_pub"
+version = "0.1.0"
+edition = "2021"
+description = "Shared backend library for publishing to Decap CMS via GitHub"
+license = "MIT"
+
+[lib]
+name = "decap_pub"
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[features]
+default = []
+# Enable for iOS builds via UniFFI
+uniffi = ["dep:uniffi"]
+
+[dependencies]
+# HTTP client
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+
+# Async runtime
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+
+# Base64 for GitHub API
+base64 = "0.22"
+
+# Date/time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# Error handling
+thiserror = "2"
+
+# Image processing (optional, for resizing)
+image = { version = "0.25", optional = true }
+
+# UniFFI for Swift bindings (optional)
+uniffi = { version = "0.28", optional = true }
+
+[build-dependencies]
+uniffi = { version = "0.28", features = ["build"], optional = true }
+
+[dev-dependencies]
+tokio-test = "0.4"

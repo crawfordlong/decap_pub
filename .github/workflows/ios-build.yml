@@ -1,0 +1,109 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [main, trunk]
+    paths:
+      - 'ios/**'
+      - '.github/workflows/ios-build.yml'
+  pull_request:
+    branches: [main, trunk]
+    paths:
+      - 'ios/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build iOS app
+        working-directory: ios/DecapPub
+        run: |
+          xcodebuild build \
+            -project DecapPub.xcodeproj \
+            -scheme DecapPub \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO
+
+  # For TestFlight releases, uncomment and configure:
+  # release:
+  #   runs-on: macos-14
+  #   if: github.ref == 'refs/heads/main'
+  #   needs: build
+  #
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Select Xcode
+  #       run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+  #
+  #     - name: Install Apple certificate and provisioning profile
+  #       env:
+  #         BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+  #         P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+  #         BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+  #         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+  #       run: |
+  #         # Create variables
+  #         CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+  #         PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+  #         KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+  #
+  #         # Import certificate and provisioning profile from secrets
+  #         echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+  #         echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+  #
+  #         # Create temporary keychain
+  #         security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+  #         security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+  #         security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+  #
+  #         # Import certificate to keychain
+  #         security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+  #         security list-keychain -d user -s $KEYCHAIN_PATH
+  #
+  #         # Apply provisioning profile
+  #         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+  #         cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+  #
+  #     - name: Build archive
+  #       working-directory: ios/DecapPub
+  #       run: |
+  #         xcodebuild archive \
+  #           -project DecapPub.xcodeproj \
+  #           -scheme DecapPub \
+  #           -archivePath $RUNNER_TEMP/DecapPub.xcarchive \
+  #           -destination 'generic/platform=iOS' \
+  #           -configuration Release
+  #
+  #     - name: Export IPA
+  #       run: |
+  #         xcodebuild -exportArchive \
+  #           -archivePath $RUNNER_TEMP/DecapPub.xcarchive \
+  #           -exportPath $RUNNER_TEMP/export \
+  #           -exportOptionsPlist ios/DecapPub/ExportOptions.plist
+  #
+  #     - name: Upload to TestFlight
+  #       env:
+  #         APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+  #         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+  #         APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+  #       run: |
+  #         API_KEY_PATH=$RUNNER_TEMP/api_key.p8
+  #         echo -n "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode -o $API_KEY_PATH
+  #
+  #         xcrun altool --upload-app \
+  #           --type ios \
+  #           --file $RUNNER_TEMP/export/DecapPub.ipa \
+  #           --apiKey $APP_STORE_CONNECT_API_KEY_ID \
+  #           --apiIssuer $APP_STORE_CONNECT_ISSUER_ID
