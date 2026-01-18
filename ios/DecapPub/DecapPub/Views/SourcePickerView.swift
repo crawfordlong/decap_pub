@@ -1,6 +1,7 @@
 import SwiftUI
 import PhotosUI
 
+@available(iOS 26.0, *)
 struct SourcePickerView: View {
     @ObservedObject var viewModel: PhotoGalleryViewModel
     @Environment(\.dismiss) private var dismiss
@@ -51,19 +52,34 @@ struct SourcePickerView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.black)
             .navigationTitle("Choose Source")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Cancel") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .font(.body.weight(.medium))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
                     }
+                    .buttonStyle(.glass)
                 }
             }
+            .toolbarBackground(.hidden, for: .navigationBar)
         }
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
-    SourcePickerView(viewModel: PhotoGalleryViewModel())
+    if #available(iOS 26.0, *) {
+        SourcePickerView(viewModel: PhotoGalleryViewModel())
+    } else {
+        Text("Requires iOS 26.0")
+    }
 }

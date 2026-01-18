@@ -7,16 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		001 /* DecapPubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101; };
-		002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102; };
-		003 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103; };
-		004 /* PhotoThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104; };
-		005 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105; };
-		006 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106; };
-		007 /* SourcePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107; };
-		008 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108; };
-		009 /* PhotoGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109; };
-		010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110; };
+		001 /* DecapPubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101 /* DecapPubApp.swift */; };
+		002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102 /* ContentView.swift */; };
+		003 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103 /* GalleryView.swift */; };
+		004 /* PhotoThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104 /* PhotoThumbnailView.swift */; };
+		005 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105 /* PhotoDetailView.swift */; };
+		006 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106 /* SettingsView.swift */; };
+		007 /* SourcePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107 /* SourcePickerView.swift */; };
+		008 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108 /* PhotoItem.swift */; };
+		009 /* PhotoGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109 /* PhotoGalleryViewModel.swift */; };
+		010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110 /* Assets.xcassets */; };
+		C6A393AD2F1C994500AA300B /* FIXES_APPLIED.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393AC2F1C994500AA300B /* FIXES_APPLIED.md */; };
+		C6A393AF2F1D55E200AA300B /* PAGINATION_IMPLEMENTATION.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393AE2F1D55E200AA300B /* PAGINATION_IMPLEMENTATION.md */; };
+		C6A393B12F1D567C00AA300B /* MEMORY_SAFETY_AUDIT.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393B02F1D567C00AA300B /* MEMORY_SAFETY_AUDIT.md */; };
+		C6A393B32F1D56BE00AA300B /* MEMORY_SAFETY_FIXES_APPLIED.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393B22F1D56BE00AA300B /* MEMORY_SAFETY_FIXES_APPLIED.md */; };
+		C6A393B52F1D56FA00AA300B /* OPTIONAL_MEMORY_ENHANCEMENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393B42F1D56FA00AA300B /* OPTIONAL_MEMORY_ENHANCEMENTS.md */; };
+		C6A393B72F1D572A00AA300B /* MEMORY_SAFETY_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393B62F1D572A00AA300B /* MEMORY_SAFETY_SUMMARY.md */; };
+		C6A393B92F1D582700AA300B /* RECENT_UPDATES.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393B82F1D582700AA300B /* RECENT_UPDATES.md */; };
+		C6A393BB2F1D58F700AA300B /* HOW_TO_INSTALL.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393BA2F1D58F700AA300B /* HOW_TO_INSTALL.md */; };
+		C6A393BD2F1D590400AA300B /* QUICK_INSTALL.md in Resources */ = {isa = PBXBuildFile; fileRef = C6A393BC2F1D590400AA300B /* QUICK_INSTALL.md */; };
+		C6B7F5672F1C8C6B00B34BD0 /* DecapPubApp_SIMPLIFIED.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B7F5662F1C8C6B00B34BD0 /* DecapPubApp_SIMPLIFIED.swift */; };
+		C6B7F56C2F1C905B00B34BD0 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698E3392F1C868100B7CC14 /* KeychainManager.swift */; };
+		C6B7F56D2F1C906100B34BD0 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698E33A2F1C869600B7CC14 /* ImageCache.swift */; };
+		C6B7F56E2F1C906600B34BD0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698E33B2F1C86AD00B7CC14 /* NetworkManager.swift */; };
+		C6B7F56F2F1C906A00B34BD0 /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698E33C2F1C86B900B7CC14 /* MigrationManager.swift */; };
+		C6B7F5702F1C906F00B34BD0 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698E33D2F1C86C700B7CC14 /* Logger+Extensions.swift */; };
+		C6B7F5712F1C907400B34BD0 /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698E33E2F1C86D400B7CC14 /* MemoryMonitor.swift */; };
+		C6C18AE82F1C54D300BE0D39 /* NoteComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C18AE72F1C54D300BE0D39 /* NoteComposerView.swift */; };
+		C6DEA7402F1C478F00A20DFF /* PublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DEA73F2F1C478F00A20DFF /* PublishView.swift */; };
+		C6DEA7422F1C47B800A20DFF /* PublishManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DEA7412F1C47B800A20DFF /* PublishManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,10 +51,34 @@
 		109 /* PhotoGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewModel.swift; sourceTree = "<group>"; };
 		110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		111 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C698E3382F1C867500B7CC14 /* FIX_LOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FIX_LOG.md; sourceTree = "<group>"; };
+		C698E3392F1C868100B7CC14 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		C698E33A2F1C869600B7CC14 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		C698E33B2F1C86AD00B7CC14 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C698E33C2F1C86B900B7CC14 /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
+		C698E33D2F1C86C700B7CC14 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
+		C698E33E2F1C86D400B7CC14 /* MemoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMonitor.swift; sourceTree = "<group>"; };
+		C6A393AC2F1C994500AA300B /* FIXES_APPLIED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FIXES_APPLIED.md; sourceTree = "<group>"; };
+		C6A393AE2F1D55E200AA300B /* PAGINATION_IMPLEMENTATION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PAGINATION_IMPLEMENTATION.md; sourceTree = "<group>"; };
+		C6A393B02F1D567C00AA300B /* MEMORY_SAFETY_AUDIT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MEMORY_SAFETY_AUDIT.md; sourceTree = "<group>"; };
+		C6A393B22F1D56BE00AA300B /* MEMORY_SAFETY_FIXES_APPLIED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MEMORY_SAFETY_FIXES_APPLIED.md; sourceTree = "<group>"; };
+		C6A393B42F1D56FA00AA300B /* OPTIONAL_MEMORY_ENHANCEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = OPTIONAL_MEMORY_ENHANCEMENTS.md; sourceTree = "<group>"; };
+		C6A393B62F1D572A00AA300B /* MEMORY_SAFETY_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MEMORY_SAFETY_SUMMARY.md; sourceTree = "<group>"; };
+		C6A393B82F1D582700AA300B /* RECENT_UPDATES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RECENT_UPDATES.md; sourceTree = "<group>"; };
+		C6A393BA2F1D58F700AA300B /* HOW_TO_INSTALL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HOW_TO_INSTALL.md; sourceTree = "<group>"; };
+		C6A393BC2F1D590400AA300B /* QUICK_INSTALL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QUICK_INSTALL.md; sourceTree = "<group>"; };
+		C6B7F5622F1C8B5C00B34BD0 /* SECURITY_AUDIT_RESULTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SECURITY_AUDIT_RESULTS.md; sourceTree = "<group>"; };
+		C6B7F5632F1C8B7B00B34BD0 /* QUICK_REFERENCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QUICK_REFERENCE.md; sourceTree = "<group>"; };
+		C6B7F5642F1C8BAE00B34BD0 /* VERIFICATION_CHECKLIST.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = VERIFICATION_CHECKLIST.md; sourceTree = "<group>"; };
+		C6B7F5652F1C8BE300B34BD0 /* IMPLEMENTATION_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IMPLEMENTATION_SUMMARY.md; sourceTree = "<group>"; };
+		C6B7F5662F1C8C6B00B34BD0 /* DecapPubApp_SIMPLIFIED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecapPubApp_SIMPLIFIED.swift; sourceTree = "<group>"; };
+		C6C18AE72F1C54D300BE0D39 /* NoteComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteComposerView.swift; sourceTree = "<group>"; };
+		C6DEA73F2F1C478F00A20DFF /* PublishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishView.swift; sourceTree = "<group>"; };
+		C6DEA7412F1C47B800A20DFF /* PublishManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		200 = {
+		200 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -50,6 +93,18 @@
 			children = (
 				301 /* DecapPub */,
 				302 /* Products */,
+				C698E3382F1C867500B7CC14 /* FIX_LOG.md */,
+				C698E3392F1C868100B7CC14 /* KeychainManager.swift */,
+				C698E33A2F1C869600B7CC14 /* ImageCache.swift */,
+				C698E33B2F1C86AD00B7CC14 /* NetworkManager.swift */,
+				C698E33C2F1C86B900B7CC14 /* MigrationManager.swift */,
+				C698E33D2F1C86C700B7CC14 /* Logger+Extensions.swift */,
+				C698E33E2F1C86D400B7CC14 /* MemoryMonitor.swift */,
+				C6B7F5622F1C8B5C00B34BD0 /* SECURITY_AUDIT_RESULTS.md */,
+				C6B7F5632F1C8B7B00B34BD0 /* QUICK_REFERENCE.md */,
+				C6B7F5642F1C8BAE00B34BD0 /* VERIFICATION_CHECKLIST.md */,
+				C6B7F5652F1C8BE300B34BD0 /* IMPLEMENTATION_SUMMARY.md */,
+				C6A393AC2F1C994500AA300B /* FIXES_APPLIED.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +118,15 @@
 				305 /* ViewModels */,
 				110 /* Assets.xcassets */,
 				111 /* Info.plist */,
+				C6B7F5662F1C8C6B00B34BD0 /* DecapPubApp_SIMPLIFIED.swift */,
+				C6A393AE2F1D55E200AA300B /* PAGINATION_IMPLEMENTATION.md */,
+				C6A393B02F1D567C00AA300B /* MEMORY_SAFETY_AUDIT.md */,
+				C6A393B22F1D56BE00AA300B /* MEMORY_SAFETY_FIXES_APPLIED.md */,
+				C6A393B42F1D56FA00AA300B /* OPTIONAL_MEMORY_ENHANCEMENTS.md */,
+				C6A393B62F1D572A00AA300B /* MEMORY_SAFETY_SUMMARY.md */,
+				C6A393B82F1D582700AA300B /* RECENT_UPDATES.md */,
+				C6A393BA2F1D58F700AA300B /* HOW_TO_INSTALL.md */,
+				C6A393BC2F1D590400AA300B /* QUICK_INSTALL.md */,
 			);
 			path = DecapPub;
 			sourceTree = "<group>";
@@ -83,6 +147,9 @@
 				105 /* PhotoDetailView.swift */,
 				106 /* SettingsView.swift */,
 				107 /* SourcePickerView.swift */,
+				C6DEA73F2F1C478F00A20DFF /* PublishView.swift */,
+				C6DEA7412F1C47B800A20DFF /* PublishManager.swift */,
+				C6C18AE72F1C54D300BE0D39 /* NoteComposerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -108,7 +175,7 @@
 /* Begin PBXNativeTarget section */
 		400 /* DecapPub */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 500;
+			buildConfigurationList = 500 /* Build configuration list for PBXNativeTarget "DecapPub" */;
 			buildPhases = (
 				401 /* Sources */,
 				200 /* Frameworks */,
@@ -126,7 +193,7 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		600 = {
+		600 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
@@ -138,7 +205,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 601;
+			buildConfigurationList = 601 /* Build configuration list for PBXProject "DecapPub" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -157,29 +224,48 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		402 = {
+		402 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6A393BD2F1D590400AA300B /* QUICK_INSTALL.md in Resources */,
+				C6A393B52F1D56FA00AA300B /* OPTIONAL_MEMORY_ENHANCEMENTS.md in Resources */,
+				C6A393BB2F1D58F700AA300B /* HOW_TO_INSTALL.md in Resources */,
+				C6A393AD2F1C994500AA300B /* FIXES_APPLIED.md in Resources */,
+				C6A393AF2F1D55E200AA300B /* PAGINATION_IMPLEMENTATION.md in Resources */,
+				C6A393B32F1D56BE00AA300B /* MEMORY_SAFETY_FIXES_APPLIED.md in Resources */,
 				010 /* Assets.xcassets in Resources */,
+				C6A393B72F1D572A00AA300B /* MEMORY_SAFETY_SUMMARY.md in Resources */,
+				C6A393B92F1D582700AA300B /* RECENT_UPDATES.md in Resources */,
+				C6A393B12F1D567C00AA300B /* MEMORY_SAFETY_AUDIT.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		401 = {
+		401 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B7F56D2F1C906100B34BD0 /* ImageCache.swift in Sources */,
 				001 /* DecapPubApp.swift in Sources */,
+				C6B7F5672F1C8C6B00B34BD0 /* DecapPubApp_SIMPLIFIED.swift in Sources */,
+				C6B7F5702F1C906F00B34BD0 /* Logger+Extensions.swift in Sources */,
 				002 /* ContentView.swift in Sources */,
+				C6B7F56E2F1C906600B34BD0 /* NetworkManager.swift in Sources */,
+				C6B7F5712F1C907400B34BD0 /* MemoryMonitor.swift in Sources */,
 				003 /* GalleryView.swift in Sources */,
 				004 /* PhotoThumbnailView.swift in Sources */,
 				005 /* PhotoDetailView.swift in Sources */,
+				C6DEA7422F1C47B800A20DFF /* PublishManager.swift in Sources */,
 				006 /* SettingsView.swift in Sources */,
+				C6DEA7402F1C478F00A20DFF /* PublishView.swift in Sources */,
+				C6B7F56C2F1C905B00B34BD0 /* KeychainManager.swift in Sources */,
+				C6B7F56F2F1C906A00B34BD0 /* MigrationManager.swift in Sources */,
 				007 /* SourcePickerView.swift in Sources */,
 				008 /* PhotoItem.swift in Sources */,
+				C6C18AE82F1C54D300BE0D39 /* NoteComposerView.swift in Sources */,
 				009 /* PhotoGalleryViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,7 +399,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 224MZN53C5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DecapPub/Info.plist;
@@ -343,7 +429,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 224MZN53C5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DecapPub/Info.plist;
@@ -369,7 +455,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		500 = {
+		500 /* Build configuration list for PBXNativeTarget "DecapPub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				702 /* Debug */,
@@ -378,7 +464,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		601 = {
+		601 /* Build configuration list for PBXProject "DecapPub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				700 /* Debug */,

@@ -4,14 +4,15 @@ import Photos
 struct PhotoItem: Identifiable {
     let id: String
     let asset: PHAsset?
-    var thumbnail: UIImage?
-    var fullImage: UIImage?
     var metadata: PhotoMetadata?
 
     init(id: String, asset: PHAsset?) {
         self.id = id
         self.asset = asset
     }
+    
+    // Images are now loaded on-demand from ImageCache
+    // This prevents memory bloat from storing hundreds of images
 }
 
 struct PhotoMetadata {

@@ -1,7 +1,9 @@
 import SwiftUI
 
+@available(iOS 26.0, *)
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var publishManager = PublishManager()
     @AppStorage("siteEndpoint") private var siteEndpoint = "https://crawfordlong.com"
     @AppStorage("siteName") private var siteName = "Crawford Long"
     @AppStorage("githubRepo") private var githubRepo = "crawfordlong/crawfordlong-com-2025"
@@ -35,6 +37,10 @@ struct SettingsView: View {
                     NavigationLink("GitHub Account") {
                         GitHubAuthView()
                     }
+                    
+                    NavigationLink("CMS Configuration") {
+                        CMSConfigView(publishManager: publishManager)
+                    }
                 }
 
                 Section {
@@ -43,16 +49,27 @@ struct SettingsView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.black)
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Text("Done")
+                            .font(.body.weight(.medium))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
                     }
+                    .buttonStyle(.glass)
                 }
             }
+            .toolbarBackground(.hidden, for: .navigationBar)
         }
+        .preferredColorScheme(.dark)
     }
 
     private func resetToDefaults() {
@@ -64,14 +81,16 @@ struct SettingsView: View {
     }
 }
 
+@available(iOS 26.0, *)
 struct GitHubAuthView: View {
-    @AppStorage("githubToken") private var githubToken = ""
+    @State private var githubToken = ""
     @State private var isAuthenticated = false
     @State private var username = ""
+    @State private var isVerifying = false
 
     var body: some View {
         Form {
-            if isAuthenticated {
+            if isAuthenticated && !username.isEmpty {
                 Section {
                     LabeledContent("Logged in as", value: username)
                     Button("Sign Out", role: .destructive) {
@@ -82,50 +101,216 @@ struct GitHubAuthView: View {
                 Section {
                     Text("Sign in with GitHub to publish photos to your site.")
                         .foregroundColor(.secondary)
-
-                    Button("Sign in with GitHub") {
-                        initiateOAuth()
-                    }
                 }
 
-                Section("Or use a Personal Access Token") {
+                Section("Personal Access Token") {
                     SecureField("GitHub Token", text: $githubToken)
                         .autocapitalization(.none)
+                        .textContentType(.password)
 
-                    Button("Verify Token") {
+                    Button {
                         verifyToken()
+                    } label: {
+                        if isVerifying {
+                            ProgressView()
+                                .tint(.white)
+                        } else {
+                            Text("Verify Token")
+                        }
                     }
-                    .disabled(githubToken.isEmpty)
+                    .buttonStyle(.glass)
+                    .disabled(githubToken.isEmpty || isVerifying)
                 }
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.black)
         .navigationTitle("GitHub Account")
         .onAppear {
+            loadTokenFromKeychain()
             checkAuthStatus()
         }
     }
 
     private func checkAuthStatus() {
-        // TODO: Verify token with GitHub API
-        isAuthenticated = !githubToken.isEmpty
-    }
-
-    private func initiateOAuth() {
-        // TODO: Implement OAuth flow via ASWebAuthenticationSession
+        if !githubToken.isEmpty {
+            Task {
+                await fetchUsername()
+            }
+        }
     }
 
     private func verifyToken() {
-        // TODO: Verify token with GitHub API
-        isAuthenticated = true
+        isVerifying = true
+        saveTokenToKeychain()
+        Task {
+            await fetchUsername()
+            isVerifying = false
+        }
+    }
+    
+    private func fetchUsername() async {
+        guard !githubToken.isEmpty else { return }
+        
+        do {
+            let url = URL(string: "https://api.github.com/user")!
+            var request = URLRequest(url: url)
+            request.setValue("token \(githubToken)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
+            request.setValue("2022-11-28", forHTTPHeaderField: "X-GitHub-Api-Version")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                await MainActor.run {
+                    isAuthenticated = false
+                    username = ""
+                }
+                return
+            }
+            
+            guard httpResponse.statusCode == 200 else {
+                await MainActor.run {
+                    isAuthenticated = false
+                    username = ""
+                }
+                return
+            }
+            
+            if let scopes = httpResponse.value(forHTTPHeaderField: "X-OAuth-Scopes") {
+                let scopeList = scopes.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+                let hasRequiredScope = scopeList.contains("repo") || scopeList.contains("public_repo")
+                
+                if !hasRequiredScope {
+                    await MainActor.run {
+                        isAuthenticated = false
+                        username = "Missing 'repo' scope"
+                    }
+                    return
+                }
+            }
+            
+            struct GitHubUser: Codable {
+                let login: String
+                let name: String?
+            }
+            
+            let user = try JSONDecoder().decode(GitHubUser.self, from: data)
+            await MainActor.run {
+                username = user.name ?? user.login
+                isAuthenticated = true
+            }
+        } catch {
+            await MainActor.run {
+                isAuthenticated = false
+                username = ""
+            }
+        }
     }
 
     private func signOut() {
         githubToken = ""
         username = ""
         isAuthenticated = false
+        KeychainManager.shared.githubToken = ""
+    }
+    
+    private func loadTokenFromKeychain() {
+        githubToken = KeychainManager.shared.githubToken
+    }
+    
+    private func saveTokenToKeychain() {
+        KeychainManager.shared.githubToken = githubToken
+    }
+}
+
+@available(iOS 26.0, *)
+struct CMSConfigView: View {
+    @ObservedObject var publishManager: PublishManager
+    @State private var isLoading = false
+    
+    var body: some View {
+        Form {
+            if isLoading {
+                Section {
+                    HStack {
+                        ProgressView()
+                        Text("Loading configuration...")
+                            .foregroundColor(.secondary)
+                    }
+                }
+            } else if let error = publishManager.configLoadError {
+                Section {
+                    Text(error)
+                        .foregroundColor(.red)
+                    
+                    Button("Retry") {
+                        loadConfig()
+                    }
+                    .buttonStyle(.glass)
+                }
+            } else if let config = publishManager.cmsConfig {
+                Section("Media Settings") {
+                    LabeledContent("Media Folder", value: config.mediaFolder)
+                    LabeledContent("Public Folder", value: config.publicFolder)
+                }
+                
+                if let collection = config.photoCollection {
+                    Section("Photo Collection") {
+                        LabeledContent("Name", value: collection.name)
+                        LabeledContent("Folder", value: collection.folder)
+                        LabeledContent("Path Template", value: collection.path ?? "(none)")
+                        LabeledContent("Slug Template", value: collection.slugTemplate ?? "(none)")
+                        LabeledContent("Media Location", value: collection.usesMediaInEntry ? "With entry (leaf bundle)" : collection.mediaFolder)
+                        LabeledContent("Public Folder", value: collection.publicFolder.isEmpty ? "(relative)" : collection.publicFolder)
+                    }
+                }
+                
+                Section {
+                    Button("Reload Configuration") {
+                        loadConfig()
+                    }
+                    .buttonStyle(.glass)
+                }
+            } else {
+                Section {
+                    Text("Configuration not loaded")
+                        .foregroundColor(.secondary)
+                    
+                    Button("Load Configuration") {
+                        loadConfig()
+                    }
+                    .buttonStyle(.glass)
+                }
+            }
+        }
+        .scrollContentBackground(.hidden)
+        .background(Color.black)
+        .navigationTitle("CMS Configuration")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if publishManager.cmsConfig == nil && publishManager.configLoadError == nil {
+                loadConfig()
+            }
+        }
+    }
+    
+    private func loadConfig() {
+        isLoading = true
+        Task {
+            await publishManager.loadCMSConfig()
+            await MainActor.run {
+                isLoading = false
+            }
+        }
     }
 }
 
 #Preview {
-    SettingsView()
+    if #available(iOS 26.0, *) {
+        SettingsView()
+            .preferredColorScheme(.dark)
+    } else {
+        Text("Requires iOS 26.0")
+    }
 }
